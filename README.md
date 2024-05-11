@@ -10,7 +10,7 @@ Destination can be any framebuf based buffer or display driver.
 - Written in pure Micropython
 - Handles native 4 and 8-bit bitmap files
 - Transparency support
-- Caches loaded image in memory for fast drawing
+- Caches image in memory for fast drawing
 - Supports loading indexed sprites from an atlas
 - Image colourspace conversion to RGB565
 - Tested on ESP32 and RP2040
@@ -22,7 +22,7 @@ Destination can be any framebuf based buffer or display driver.
 ## Supported image format
 Any standard indexed bitmap should work provided you have enough RAM to load it. Most image editors will allow you to save an indexed bitmap but I would recommend an image editor designed for indexed images such as [Usenti](https://www.coranac.com/projects/usenti/) as this will give you much more control of the final image.
 
-## Commands
+## Functions
 ### Draw the entire image
 ```python
 BMPLoader.draw(buffer,x=0,y=0,bg=-1)
