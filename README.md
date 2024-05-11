@@ -31,7 +31,7 @@ BMPLoader.draw(buffer,x=0,y=0,bg=-1)
 
 **x**, **y** - top left corner of image, can be neagtive
 
-**bg** - colour to set as transparent. Pixels matching this colour will not be drawn
+**bg** - RGB565 encoded colour to set as transparent. Pixels matching this colour will not be drawn
 
 
 ### Draw an indexed sprite
@@ -44,7 +44,7 @@ BMPLoader.draw_index(buffer,x=0,y=0,index=0,bg=-1)
 
 **index** - select which sprite to draw
 
-**bg** - colour to set as transparent. Pixels matching this colour will not be drawn
+**bg** - RGB565 encoded colour to set as transparent. Pixels matching this colour will not be drawn
 
 
 ### Draw a cropped image
@@ -57,7 +57,7 @@ BMPLoader.draw_xy(buffer,x=0,y=0,crop_x=0,crop_y=0,bg=-1)
 
 **crop_x**, **crop_y** - top left corner of window on larger image
 
-**bg** - colour to set as transparent. Pixels matching this colour will not be drawn
+**bg** - RGB565 encoded colour to set as transparent. Pixels matching this colour will not be drawn
 
 
 ### RGB565 colour conversion
