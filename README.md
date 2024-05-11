@@ -20,7 +20,7 @@ Destination can be any framebuf based buffer or display driver.
 - Maximum size of loadable image will depend on available memory
 
 ## Supported image format
-Any standard indexed bitmap should work provided you have enough RAM to load it. Most image editors will allow you to save an indexed bitmap but I would recommend an image editor designed for indexed images such as [Usenti](https://www.coranac.com/projects/usenti/) as this give you much more control of the final image.
+Any standard indexed bitmap should work provided you have enough RAM to load it. Most image editors will allow you to save an indexed bitmap but I would recommend an image editor designed for indexed images such as [Usenti](https://www.coranac.com/projects/usenti/) as this will give you much more control of the final image.
 
 ## Commands
 ### Draw the entire image
