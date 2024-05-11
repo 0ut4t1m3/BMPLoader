@@ -49,13 +49,13 @@ BMPLoader.draw_index(buffer,x=0,y=0,index=0,bg=-1)
 
 ### Draw a cropped image
 ```python
-BMPLoader.draw_xy(buffer,x=0,y=0,index_x=0,index_y=0,bg=-1)
+BMPLoader.draw_xy(buffer,x=0,y=0,crop_x=0,crop_y=0,bg=-1)
 ```
 **buffer** - framebuf based buffer to draw the image to
 
 **x**, **y** - top left corner location on output buffer
 
-**index_x**, **index_y** - top left corner of window on larger image
+**crop_x**, **crop_y** - top left corner of window on larger image
 
 **bg** - colour to set as transparent. Pixels matching this colour will not be drawn
 
