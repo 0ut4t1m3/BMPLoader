@@ -29,7 +29,7 @@ BMPLoader.draw(buffer,x=0,y=0,bg=-1)
 ```
 **buffer** - framebuf based buffer to draw the image to
 
-**x**, **y** - top left corner of image, can be neagtive
+**x**, **y** - image top left corner location on output buffer
 
 **bg** - RGB565 encoded colour to set as transparent. Pixels matching this colour will not be drawn
 
@@ -40,7 +40,7 @@ BMPLoader.draw_index(buffer,x=0,y=0,index=0,bg=-1)
 ```
 **buffer** - framebuf based buffer to draw the image to
 
-**x**, **y** - top left corner of image, can be neagtive
+**x**, **y** - image top left corner location on output buffer
 
 **index** - select which sprite to draw
 
@@ -53,7 +53,7 @@ BMPLoader.draw_xy(buffer,x=0,y=0,crop_x=0,crop_y=0,bg=-1)
 ```
 **buffer** - framebuf based buffer to draw the image to
 
-**x**, **y** - top left corner location on output buffer
+**x**, **y** - image top left corner location on output buffer
 
 **crop_x**, **crop_y** - top left corner of window on larger image
 
@@ -64,6 +64,7 @@ BMPLoader.draw_xy(buffer,x=0,y=0,crop_x=0,crop_y=0,bg=-1)
 ```python
 BMPLoader.rgb(r,g,b)
 ```
+
 **r**, **g**, **b** - RGB colour to convert
 
 *returns* encoded colour value
@@ -74,6 +75,8 @@ BMPLoader.rgb(r,g,b)
 There are three different methods that can be used to draw an image to a buffer
 ### Full image
 This will draw the entire image to the buffer based on the top left starting position.
+
+![img1](https://github.com/0ut4t1m3/BMPLoader/assets/12528193/15dc8117-c775-4b84-974f-03715bea5b4b)
 ```python
 from bmploader import BMPLoader
 
@@ -84,6 +87,8 @@ img.draw(buffer,x=0,y=0,bg=-1)
 
 ### Indexed sprite
 Useful for stateful icons like battery level. The width of each sprite is set at load and can be selected by its index.
+
+![img2](https://github.com/0ut4t1m3/BMPLoader/assets/12528193/7a64e60e-c4fe-4cd5-951f-cda1b7c72173)
 ```python
 from bmploader import BMPLoader
 
@@ -94,6 +99,8 @@ img.draw_index(buffer,x=0,y=0,index=2,bg=-1)
 
 ### Windowed mode
 Draw a smaller cropped section of the image. Useful for displaying a pannable image such as a map.
+
+![img3](https://github.com/0ut4t1m3/BMPLoader/assets/12528193/3452f9f8-d3d0-4b72-9b2f-d99b54b146bf)
 ```python
 from bmploader import BMPLoader
 
