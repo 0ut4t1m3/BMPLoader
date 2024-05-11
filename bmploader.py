@@ -20,10 +20,10 @@ import framebuf
 import gc
 
 class BMPLoader:
-    def __init__(self,imgfile,spr_w=None, spr_h=None):
+    def __init__(self,imgfile,width=None,height=None):
         
-        self.__sprwidth  = spr_w
-        self.__sprheight = spr_h
+        self.__sprwidth  = width
+        self.__sprheight = height
 
         with open(imgfile, 'rb') as f:
             data = f.read(14)
@@ -46,11 +46,11 @@ class BMPLoader:
                 "Compression is not supported"
             assert 3 < DIB_depth < 9, \
                 "Only 16 and 265 colour bitmaps are supported"
-            if spr_w:
-                assert spr_w <= DIB_w, \
+            if width:
+                assert width <= DIB_w, \
                     f"Sprite width must be within image dimensions ({DIB_w})"
-            if spr_h:
-                assert spr_h <= DIB_h, \
+            if height:
+                assert height <= DIB_h, \
                     f"Sprite height must be within image dimensions ({DIB_h})"
                 
             if DIB_w % 8:
@@ -85,8 +85,8 @@ class BMPLoader:
             self.__imgbuff.blit(tempbuff,0,0,-1,palette)
             
             #if we're using the sprite functions set up a buffer to handle the sprite
-            if spr_w:
-                self.__tile = framebuf.FrameBuffer(bytearray(spr_w * DIB_h * 2), spr_w, spr_h if spr_h else DIB_h, framebuf.RGB565)
+            if width:
+                self.__tile = framebuf.FrameBuffer(bytearray(width * (height if height else DIB_h) * 2), width, height if height else DIB_h, framebuf.RGB565)
         gc.collect()
         
     #RGB565 conversion
@@ -104,7 +104,8 @@ class BMPLoader:
         buffer.blit(self.__tile,x,y,bg)
         
     #draw image sprite in xy mode
-    def draw_xy(self,buffer,x=0,y=0,index_x=0,index_y=0,bg=-1):
+    def draw_xy(self,buffer,x=0,y=0,crop_x=0,crop_y=0,bg=-1):
         assert self.__sprheight, f"XY mode called without correct initilisation"
-        self.__tile.blit(self.__imgbuff, -index_x, -index_y)
+        self.__tile.blit(self.__imgbuff, -crop_x, -crop_y)
         buffer.blit(self.__tile,x,y,bg)
+
