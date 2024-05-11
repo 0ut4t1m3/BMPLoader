@@ -60,12 +60,12 @@ class BMPLoader:
                 
             #set up palette
             if DIB_depth == 4:
-                palette = framebuf.FrameBuffer(bytearray(32), 16, 1, framebuf.RGB565)
+                self.__palette = framebuf.FrameBuffer(bytearray(32), 16, 1, framebuf.RGB565)
             else:    
-                palette = framebuf.FrameBuffer(bytearray(512), 256, 1, framebuf.RGB565)
+                self.__palette = framebuf.FrameBuffer(bytearray(512), 256, 1, framebuf.RGB565)
             for i in range(DIB_plt_num_info):
                     data = f.read(4)
-                    palette.pixel(i,0,self.rgb(data[2],data[1],data[0]))    
+                    self.__palette.pixel(i,0,self.rgb(data[2],data[1],data[0]))    
             
             #set up image buffer, width aligned to 8 bits
             in_mv  = memoryview(f.read())
@@ -80,13 +80,14 @@ class BMPLoader:
             
             tempbuff = framebuf.FrameBuffer(out_mv, DIB_w + padding, DIB_h, framebuf.GS4_HMSB if DIB_depth == 4 else framebuf.GS8)
             
-            #initilise buffer to the proper frame size and colourspace
-            self.__imgbuff = framebuf.FrameBuffer(bytearray(DIB_w * DIB_h * 2), DIB_w, DIB_h, framebuf.RGB565)
-            self.__imgbuff.blit(tempbuff,0,0,-1,palette)
+            #initilise buffer to the proper frame size
+            self.__imgbuff = framebuf.FrameBuffer(bytearray(DIB_w * DIB_h * 2), DIB_w, DIB_h, framebuf.GS4_HMSB if DIB_depth == 4 else framebuf.GS8)
+            self.__imgbuff.blit(tempbuff,0,0,-1)
             
             #if we're using the sprite functions set up a buffer to handle the sprite
             if width:
-                self.__tile = framebuf.FrameBuffer(bytearray(width * (height if height else DIB_h) * 2), width, height if height else DIB_h, framebuf.RGB565)
+                self.__tile = framebuf.FrameBuffer(bytearray(width * (height if height else DIB_h) * 2), width, height if height else DIB_h, framebuf.GS4_HMSB if DIB_depth == 4 else framebuf.GS8)
+        
         gc.collect()
         
     #RGB565 conversion
@@ -95,17 +96,17 @@ class BMPLoader:
         
     #draw image to given framebuffer
     def draw(self,buffer,x=0,y=0,bg=-1):
-        buffer.blit(self.__imgbuff,x,y,bg)
+        buffer.blit(self.__imgbuff,x,y,bg,self.__palette)
         
     #draw image sprite in index mode
     def draw_index(self,buffer,x=0,y=0,index=0,bg=-1):
         assert self.__sprwidth, f"Index mode called without correct initilisation"
         self.__tile.blit(self.__imgbuff, -self.__sprwidth * index, 0)
-        buffer.blit(self.__tile,x,y,bg)
+        buffer.blit(self.__tile,x,y,bg,self.__palette)
         
     #draw image sprite in xy mode
     def draw_xy(self,buffer,x=0,y=0,crop_x=0,crop_y=0,bg=-1):
         assert self.__sprheight, f"XY mode called without correct initilisation"
         self.__tile.blit(self.__imgbuff, -crop_x, -crop_y)
-        buffer.blit(self.__tile,x,y,bg)
+        buffer.blit(self.__tile,x,y,bg,self.__palette)
 
