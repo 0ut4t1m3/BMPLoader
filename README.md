@@ -104,7 +104,7 @@ Draw a smaller cropped section of the image. Useful for displaying a pannable im
 ```python
 from bmploader import BMPLoader
 
-img = BMPLoader('imgfile.bmp',width=50,height=50)
+img = BMPLoader('imgfile.bmp',width=300,height=300)
 
 img.draw_xy(buffer,x=0,y=0,crop_x=50,crop_y=75,bg=-1)
 ```
