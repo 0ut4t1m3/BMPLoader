@@ -16,7 +16,7 @@ Destination can be any framebuf based buffer or display driver.
 - Tested on ESP32 and RP2040
 
 ## Requirements
-- Requires framebuf and struct libraries so will only work on ports that include them
+- Requires framebuf so will only work on ports that include it
 - Maximum size of loadable image will depend on available memory
 
 ## Supported image format
